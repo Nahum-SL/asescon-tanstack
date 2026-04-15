@@ -1,0 +1,10 @@
+cat <<EOF > .gitignore
+node_modules/
+.env
+.env*.local
+dist/
+.next/
+out/
+build/
+*.log
+EOF
