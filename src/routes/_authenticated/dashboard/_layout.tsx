@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { requireAuth } from "@/shared/components/ProtectedRoute";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/_authenticated/dashboard/_layout")({
   beforeLoad: ({ context }) => {
     requireAuth(context);
   },

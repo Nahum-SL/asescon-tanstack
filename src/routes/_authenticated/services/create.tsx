@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/auth/verify-2fa')({
+export const Route = createFileRoute('/_authenticated/services/create')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <div>Hello "/auth/verify-2fa"!</div>
+  return <div>Hello "/services/create"!</div>
 }

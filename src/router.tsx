@@ -1,9 +1,11 @@
+// Cambio clave: el contexto se hidrata en _root.tsx con beforeLoad,
+// no aquí. Aquí solo defines la forma.
+
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routeTree } from "#/routeTree.gen";
 import { queryClient } from "#/lib/query-client";
 import type { User } from "#/features/users/types";
 import type { QueryClient } from "@tanstack/react-query";
-import { getUserFromStorage } from "#/lib/auth";
 
 export interface RouterContext {
   queryClient: QueryClient;
@@ -18,7 +20,9 @@ export function getRouter() {
     context: {
       queryClient,
       auth: {
-        user: null, // Luego se llena
+        user: null,
+        // ✅ null es correcto aquí — se hidrata en Root.beforeLoad
+        // antes de renderizar cualquier componente
       },
     } satisfies RouterContext,
     scrollRestoration: true,

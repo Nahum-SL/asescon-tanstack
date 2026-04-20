@@ -64,11 +64,18 @@ export default function Header() {
             About
           </Link>
           <Link
-            to="/servicio"
+            to="/services"
             className="nav-link"
             activeProps={{ className: "nav-link is active" }}
           >
             Servicios
+          </Link>
+          <Link
+            to="/auth/login"
+            className="nav-link"
+            activeProps={{ className: "nav-link is active" }}
+          >
+            Login
           </Link>
           <a
             href="https://tanstack.com/start/latest/docs/framework/react/overview"

@@ -3,7 +3,7 @@ import { useServices, SERVICES_QUERY_KEY } from "#/features/services/hooks";
 import { getServices } from "#/features/services/api";
 import { queryClient } from "#/lib/query-client";
 
-export const Route = createFileRoute("/servicio")({
+export const Route = createFileRoute("/_authenticated/services/")({
   loader: async () => {
     await queryClient.ensureQueryData({
       queryKey: SERVICES_QUERY_KEY,

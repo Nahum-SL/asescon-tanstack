@@ -9,18 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ServicioRouteImport } from './routes/servicio'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthVerify2faRouteImport } from './routes/auth/verify-2fa'
+import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AuthenticatedServicesIndexRouteImport } from './routes/_authenticated/services/index'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedServicesCreateRouteImport } from './routes/_authenticated/services/create'
+import { Route as AuthenticatedServicesServicioIdRouteImport } from './routes/_authenticated/services/$servicioId'
+import { Route as AuthenticatedDashboardLayoutRouteImport } from './routes/_authenticated/dashboard/_layout'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
+import { Route as AuthenticatedAdminLayoutRouteImport } from './routes/_authenticated/admin/_layout'
 
-const ServicioRoute = ServicioRouteImport.update({
-  id: '/servicio',
-  path: '/servicio',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -28,51 +36,162 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthVerify2faRoute = AuthVerify2faRouteImport.update({
+  id: '/auth/verify-2fa',
+  path: '/auth/verify-2fa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedServicesIndexRoute =
+  AuthenticatedServicesIndexRouteImport.update({
+    id: '/services/',
+    path: '/services/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDashboardIndexRoute =
+  AuthenticatedDashboardIndexRouteImport.update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedServicesCreateRoute =
+  AuthenticatedServicesCreateRouteImport.update({
+    id: '/services/create',
+    path: '/services/create',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedServicesServicioIdRoute =
+  AuthenticatedServicesServicioIdRouteImport.update({
+    id: '/services/$servicioId',
+    path: '/services/$servicioId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDashboardLayoutRoute =
+  AuthenticatedDashboardLayoutRouteImport.update({
+    id: '/dashboard/_layout',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAdminLayoutRoute =
+  AuthenticatedAdminLayoutRouteImport.update({
+    id: '/admin/_layout',
+    path: '/admin',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/servicio': typeof ServicioRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/verify-2fa': typeof AuthVerify2faRoute
+  '/admin': typeof AuthenticatedAdminLayoutRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/dashboard': typeof AuthenticatedDashboardLayoutRoute
+  '/services/$servicioId': typeof AuthenticatedServicesServicioIdRoute
+  '/services/create': typeof AuthenticatedServicesCreateRoute
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/services/': typeof AuthenticatedServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/servicio': typeof ServicioRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/verify-2fa': typeof AuthVerify2faRoute
+  '/admin': typeof AuthenticatedAdminLayoutRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/services/$servicioId': typeof AuthenticatedServicesServicioIdRoute
+  '/services/create': typeof AuthenticatedServicesCreateRoute
+  '/services': typeof AuthenticatedServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
-  '/servicio': typeof ServicioRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/verify-2fa': typeof AuthVerify2faRoute
+  '/_authenticated/admin/_layout': typeof AuthenticatedAdminLayoutRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/_authenticated/dashboard/_layout': typeof AuthenticatedDashboardLayoutRoute
+  '/_authenticated/services/$servicioId': typeof AuthenticatedServicesServicioIdRoute
+  '/_authenticated/services/create': typeof AuthenticatedServicesCreateRoute
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/services/': typeof AuthenticatedServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/servicio'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/auth/login'
+    | '/auth/verify-2fa'
+    | '/admin'
+    | '/admin/users'
+    | '/dashboard'
+    | '/services/$servicioId'
+    | '/services/create'
+    | '/dashboard/'
+    | '/services/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/servicio'
-  id: '__root__' | '/' | '/about' | '/servicio'
+  to:
+    | '/'
+    | '/about'
+    | '/auth/login'
+    | '/auth/verify-2fa'
+    | '/admin'
+    | '/admin/users'
+    | '/dashboard'
+    | '/services/$servicioId'
+    | '/services/create'
+    | '/services'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/about'
+    | '/auth/login'
+    | '/auth/verify-2fa'
+    | '/_authenticated/admin/_layout'
+    | '/_authenticated/admin/users'
+    | '/_authenticated/dashboard/_layout'
+    | '/_authenticated/services/$servicioId'
+    | '/_authenticated/services/create'
+    | '/_authenticated/dashboard/'
+    | '/_authenticated/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
-  ServicioRoute: typeof ServicioRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthVerify2faRoute: typeof AuthVerify2faRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/servicio': {
-      id: '/servicio'
-      path: '/servicio'
-      fullPath: '/servicio'
-      preLoaderRoute: typeof ServicioRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -82,13 +201,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/verify-2fa': {
+      id: '/auth/verify-2fa'
+      path: '/auth/verify-2fa'
+      fullPath: '/auth/verify-2fa'
+      preLoaderRoute: typeof AuthVerify2faRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/services/': {
+      id: '/_authenticated/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof AuthenticatedServicesIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/dashboard/': {
+      id: '/_authenticated/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/services/create': {
+      id: '/_authenticated/services/create'
+      path: '/services/create'
+      fullPath: '/services/create'
+      preLoaderRoute: typeof AuthenticatedServicesCreateRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/services/$servicioId': {
+      id: '/_authenticated/services/$servicioId'
+      path: '/services/$servicioId'
+      fullPath: '/services/$servicioId'
+      preLoaderRoute: typeof AuthenticatedServicesServicioIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/dashboard/_layout': {
+      id: '/_authenticated/dashboard/_layout'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardLayoutRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/_layout': {
+      id: '/_authenticated/admin/_layout'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedAdminLayoutRoute: typeof AuthenticatedAdminLayoutRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+  AuthenticatedDashboardLayoutRoute: typeof AuthenticatedDashboardLayoutRoute
+  AuthenticatedServicesServicioIdRoute: typeof AuthenticatedServicesServicioIdRoute
+  AuthenticatedServicesCreateRoute: typeof AuthenticatedServicesCreateRoute
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedServicesIndexRoute: typeof AuthenticatedServicesIndexRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminLayoutRoute: AuthenticatedAdminLayoutRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+  AuthenticatedDashboardLayoutRoute: AuthenticatedDashboardLayoutRoute,
+  AuthenticatedServicesServicioIdRoute: AuthenticatedServicesServicioIdRoute,
+  AuthenticatedServicesCreateRoute: AuthenticatedServicesCreateRoute,
+  AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  AuthenticatedServicesIndexRoute: AuthenticatedServicesIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
-  ServicioRoute: ServicioRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthVerify2faRoute: AuthVerify2faRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
